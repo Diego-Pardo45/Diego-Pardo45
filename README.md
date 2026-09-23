@@ -2,13 +2,11 @@
 
 Estudiante de 5° año de Ingeniería Civil Informática en la Universidad del Bío-Bío y desarrollador full stack.
 
-<img src="https://ghchart.rshah.org/2ea043/Diego-Pardo45" alt="Contribuciones de Diego en GitHub" width="100%" />
-
 ### En qué trabajo
 - **Único desarrollador** de una plataforma web multi-rol en producción (NestJS, React 19, PostgreSQL y GCP).
 - **Full Stack Developer en Lifty**: integración de pagos con Stripe, búsqueda geoespacial con MapLibre y PostGIS, e integraciones con la API de Meta.
 
-La mayor parte de mi trabajo está en repositorios privados por acuerdos de confidencialidad; el gráfico de arriba refleja esa actividad.
+La mayor parte de mi trabajo está en repositorios privados por acuerdos de confidencialidad.
 
 <details>
 <summary><b>Cómo trabajo y stack</b></summary>
