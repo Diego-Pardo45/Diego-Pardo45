@@ -11,20 +11,10 @@ Estudiante de 5° año de Ingeniería Civil Informática en la Universidad del B
 La mayor parte de mi trabajo está en repositorios privados por acuerdos de confidencialidad.
 
 ### Stack
-<img src="https://skillicons.dev/icons?i=ts" alt="TypeScript" title="TypeScript" />
-<img src="https://skillicons.dev/icons?i=nestjs" alt="NestJS" title="NestJS" />
-<img src="https://skillicons.dev/icons?i=react" alt="React" title="React" />
-<img src="https://skillicons.dev/icons?i=nextjs" alt="Next.js" title="Next.js" />
-<img src="https://skillicons.dev/icons?i=postgres" alt="PostgreSQL" title="PostgreSQL" />
-<img src="assets/drizzle.svg" alt="Drizzle ORM" title="Drizzle ORM" width="48" />
-<img src="https://skillicons.dev/icons?i=prisma" alt="Prisma" title="Prisma" />
-<img src="https://skillicons.dev/icons?i=docker" alt="Docker" title="Docker" />
-<img src="https://skillicons.dev/icons?i=gcp" alt="Google Cloud" title="Google Cloud" />
+<p><img src="https://skillicons.dev/icons?i=ts" alt="TypeScript" title="TypeScript" /> <img src="https://skillicons.dev/icons?i=nestjs" alt="NestJS" title="NestJS" /> <img src="https://skillicons.dev/icons?i=react" alt="React" title="React" /> <img src="https://skillicons.dev/icons?i=nextjs" alt="Next.js" title="Next.js" /> <img src="https://skillicons.dev/icons?i=postgres" alt="PostgreSQL" title="PostgreSQL" /> <img src="assets/drizzle.svg" alt="Drizzle ORM" title="Drizzle ORM" width="48" /> <img src="https://skillicons.dev/icons?i=prisma" alt="Prisma" title="Prisma" /> <img src="https://skillicons.dev/icons?i=docker" alt="Docker" title="Docker" /> <img src="https://skillicons.dev/icons?i=gcp" alt="Google Cloud" title="Google Cloud" /></p>
 
 ### Cómo trabajo
-<img src="https://skillicons.dev/icons?i=vitest" alt="Vitest" title="Vitest" />
-<img src="https://skillicons.dev/icons?i=jest" alt="Jest" title="Jest" />
-<img src="https://skillicons.dev/icons?i=githubactions" alt="GitHub Actions" title="GitHub Actions" />
+<p><img src="https://skillicons.dev/icons?i=vitest" alt="Vitest" title="Vitest" /> <img src="https://skillicons.dev/icons?i=jest" alt="Jest" title="Jest" /> <img src="https://skillicons.dev/icons?i=githubactions" alt="GitHub Actions" title="GitHub Actions" /></p>
 
 - Desarrollo guiado por pruebas (TDD) con Vitest y Jest, y pruebas E2E de API con Supertest
 - CI/CD con GitHub Actions y Cloud Build
