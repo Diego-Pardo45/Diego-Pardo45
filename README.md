@@ -4,7 +4,7 @@
 
 Estudiante de 5° año de Ingeniería Civil Informática en la Universidad del Bío-Bío y desarrollador full stack.
 
-<p align="center"><img src="assets/coder.svg?v=3" width="320" alt="Personaje pixel art programando con una taza de café" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Diego-Pardo45/Diego-Pardo45/main/assets/coder.svg?v=4" width="320" alt="Personaje pixel art programando con una taza de café" /></p>
 
 ### En qué trabajo
 - **Único desarrollador** de una plataforma web multi-rol en producción (NestJS, React 19, PostgreSQL y GCP).
