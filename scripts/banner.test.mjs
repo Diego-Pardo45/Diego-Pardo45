@@ -21,11 +21,20 @@ test("letters of a phrase appear one after another and vanish after it is shown"
   assert.ok(a.vanish <= c.appear, "the next phrase starts after the previous one is erased");
 });
 
-test("the cursor returns to the start so the loop is seamless", () => {
-  const { cursor, total } = buildTimeline(["AB", "C"]);
-  assert.equal(cursor[0].slot, 0);
-  assert.equal(cursor.at(-1).slot, 0);
-  assert.ok(cursor.every((k) => k.time >= 0 && k.time <= total));
+test("the builder walks back to the start so the loop is seamless", () => {
+  const { builder, total } = buildTimeline(["AB", "C"]);
+  assert.equal(builder[0].slot, 0);
+  assert.equal(builder.at(-1).slot, 0);
+  assert.ok(builder.every((k) => k.time >= 0 && k.time <= total));
+});
+
+test("the builder hammers while placing letters and walks back while erasing", () => {
+  const { letters, phases } = buildTimeline(["AB", "C"]);
+  const [a, b] = letters;
+  const [first] = phases;
+  assert.ok(first.build[0] < a.appear && first.build[1] === b.appear, "hammering covers the placement of every letter");
+  assert.ok(first.erase[0] >= b.appear && first.erase[1] === a.vanish, "walking back ends when the first letter is gone");
+  assert.equal(phases.length, 2);
 });
 
 test("spaces take typing time but draw nothing", () => {
@@ -38,5 +47,6 @@ test("renderBanner draws one animated group per visible letter", () => {
   const svg = renderBanner(["AB", "C D"]);
   assert.match(svg, /^<svg /);
   assert.equal((svg.match(/class="ch /g) ?? []).length, 4);
-  assert.match(svg, /class="cursor"/);
+  assert.match(svg, /class="builder"/);
+  assert.match(svg, /class="gear /);
 });

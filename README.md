@@ -1,6 +1,6 @@
 # Hola, soy Diego 👋
 
-<img src="https://raw.githubusercontent.com/Diego-Pardo45/Diego-Pardo45/main/assets/banner.svg?v=1" width="600" alt="Desarrollador full stack · APIs tipadas de extremo a extremo · TDD, CI/CD y Google Cloud" />
+<img src="https://raw.githubusercontent.com/Diego-Pardo45/Diego-Pardo45/main/assets/banner.svg?v=2" width="565" alt="Desarrollador full stack · APIs tipadas de extremo a extremo · TDD, CI/CD y Google Cloud" />
 
 Estudiante de 5° año de Ingeniería Civil Informática en la Universidad del Bío-Bío y desarrollador full stack.
 
