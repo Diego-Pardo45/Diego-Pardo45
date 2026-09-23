@@ -51,15 +51,10 @@
   <rect class="blink" x="33" y="35" width="1" height="2" fill="#1a1a1a"/>
   <rect class="blink" x="37" y="35" width="1" height="2" fill="#1a1a1a"/>
   <rect x="26" y="40" width="14" height="6" fill="#0f1114"/>
-  <!-- Hood resting around the neck as a thick collar -->
-  <rect x="25" y="39" width="16" height="2" fill="#1b1f24"/>
-  <rect x="25" y="39" width="16" height="1" fill="#3a414b"/>
-  <!-- Mostly closed: only a small V of the white t-shirt, with a light blue pendant -->
-  <rect x="34" y="40" width="3" height="1" fill="#f0f0f0"/>
-  <rect x="35" y="41" width="1" height="1" fill="#8ecae6"/>
-  <rect x="34" y="41" width="1" height="1" fill="#f0f0f0"/>
-  <rect x="36" y="41" width="1" height="1" fill="#f0f0f0"/>
-  <rect x="35" y="42" width="1" height="4" fill="#2b3038"/>
+  <rect x="26" y="40" width="14" height="1" fill="#3a414b"/>
+  <rect x="34" y="40" width="3" height="6" fill="#f0f0f0"/>
+  <rect x="33" y="41" width="1" height="5" fill="#2b3038"/>
+  <rect x="37" y="41" width="1" height="5" fill="#2b3038"/>
   <!-- Side nub, as a hoodie sleeve -->
   <rect x="24" y="41" width="2" height="2" fill="#15181c"/>
 
