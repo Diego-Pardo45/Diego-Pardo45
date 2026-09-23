@@ -25,6 +25,38 @@
 
     .cursor { animation: cursor 1s steps(1) infinite; }
     @keyframes cursor { 50% { opacity: 0; } }
+
+    /* Coffee break: every 14s the character stops typing, looks at the mug,
+       lifts it, takes a sip and puts it back where it was. */
+    .typing, .resting, .look, .savor, .reach, .raise, .hand, .mug { animation: 14s steps(1) infinite; }
+    .typing { animation-name: typing; }
+    @keyframes typing { 0% { opacity: 1; } 70% { opacity: 0; } 96% { opacity: 1; } }
+    .resting { opacity: 0; animation-name: resting; }
+    @keyframes resting { 0% { opacity: 0; } 70% { opacity: 1; } 96% { opacity: 0; } }
+    .look { animation-name: look; }
+    @keyframes look { 0% { transform: translateX(0); } 71% { transform: translateX(-5px); } 95% { transform: translateX(0); } }
+    .savor { transform-box: fill-box; transform-origin: center; animation-name: savor; }
+    @keyframes savor { 0% { transform: scaleY(1); } 79% { transform: scaleY(0.2); } 86% { transform: scaleY(1); } }
+    .reach { opacity: 0; animation-name: reach; }
+    @keyframes reach { 0% { opacity: 0; } 72% { opacity: 1; } 75% { opacity: 0; } 89% { opacity: 1; } 93% { opacity: 0; } }
+    .raise { opacity: 0; animation-name: raise; }
+    @keyframes raise { 0% { opacity: 0; } 75% { opacity: 1; } 89% { opacity: 0; } }
+    .hand { opacity: 0; animation-name: hand; }
+    @keyframes hand { 0% { opacity: 0; } 72% { opacity: 1; } 93% { opacity: 0; } }
+    .mug { transform-box: view-box; transform-origin: 13.5px 43.5px; animation-name: mug; }
+    @keyframes mug {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      75% { transform: translate(3px, -2px) rotate(0deg); }
+      76% { transform: translate(6px, -5px) rotate(0deg); }
+      77% { transform: translate(9px, -7px) rotate(0deg); }
+      78% { transform: translate(9px, -7px) rotate(15deg); }
+      79% { transform: translate(9px, -7px) rotate(30deg); }
+      85% { transform: translate(9px, -7px) rotate(15deg); }
+      86% { transform: translate(9px, -7px) rotate(0deg); }
+      87% { transform: translate(6px, -5px) rotate(0deg); }
+      88% { transform: translate(3px, -2px) rotate(0deg); }
+      89% { transform: translate(0, 0) rotate(0deg); }
+    }
   </style>
 
   <!-- Room -->
@@ -48,8 +80,10 @@
   <!-- Character: one compact block, orange on top and a black hoodie below -->
   <rect x="26" y="33" width="14" height="7" fill="#D97757"/>
   <rect x="26" y="33" width="14" height="1" fill="#E8906F"/>
-  <rect class="blink" x="33" y="35" width="1" height="2" fill="#1a1a1a"/>
-  <rect class="blink" x="37" y="35" width="1" height="2" fill="#1a1a1a"/>
+  <g class="look"><g class="savor">
+    <rect class="blink" x="33" y="35" width="1" height="2" fill="#1a1a1a"/>
+    <rect class="blink" x="37" y="35" width="1" height="2" fill="#1a1a1a"/>
+  </g></g>
   <rect x="26" y="40" width="14" height="6" fill="#0f1114"/>
   <rect x="26" y="40" width="14" height="1" fill="#3a414b"/>
   <rect x="34" y="40" width="3" height="6" fill="#f0f0f0"/>
@@ -59,15 +93,26 @@
   <rect x="24" y="41" width="2" height="2" fill="#15181c"/>
 
   <!-- Arms reaching the keyboard -->
-  <g class="tap-b">
-    <rect x="40" y="41" width="4" height="2" fill="#0b0d10"/>
-    <rect x="44" y="42" width="2" height="2" fill="#C15F3C"/>
+  <g class="typing">
+    <g class="tap-b">
+      <rect x="40" y="41" width="4" height="2" fill="#0b0d10"/>
+      <rect x="44" y="42" width="2" height="2" fill="#C15F3C"/>
+    </g>
+    <g class="tap-a">
+      <rect x="40" y="42" width="3" height="2" fill="#15181c"/>
+      <rect x="40" y="42" width="3" height="1" fill="#3a414b"/>
+      <rect x="43" y="43" width="2" height="2" fill="#D97757"/>
+    </g>
   </g>
-  <g class="tap-a">
-    <rect x="40" y="42" width="3" height="2" fill="#15181c"/>
-    <rect x="40" y="42" width="3" height="1" fill="#3a414b"/>
-    <rect x="43" y="43" width="2" height="2" fill="#D97757"/>
+  <!-- Front arm resting on the desk during the coffee break -->
+  <g class="resting">
+    <rect x="40" y="43" width="3" height="2" fill="#15181c"/>
+    <rect x="40" y="43" width="3" height="1" fill="#3a414b"/>
+    <rect x="43" y="44" width="2" height="2" fill="#D97757"/>
   </g>
+  <!-- Side arm: stretched to the mug on the desk, then raised to the face -->
+  <rect class="reach" x="18" y="42" width="6" height="2" fill="#15181c"/>
+  <rect class="raise" x="24" y="37" width="2" height="5" fill="#15181c"/>
 
   <!-- Monitor -->
   <rect x="54" y="16" width="34" height="24" fill="#30363d"/>
@@ -87,12 +132,16 @@
   <rect class="cursor" x="58" y="34" width="2" height="2" fill="#e6edf3"/>
 
   <!-- Coffee mug with a Claude orange band -->
-  <rect x="11" y="41" width="5" height="5" fill="#e6edf3"/>
-  <rect x="12" y="41" width="3" height="1" fill="#6b4423"/>
-  <rect x="11" y="43" width="5" height="1" fill="#D97757"/>
-  <rect x="16" y="42" width="1" height="3" fill="#e6edf3"/>
-  <rect class="steam" x="12" y="38" width="1" height="2" fill="#8b949e"/>
-  <rect class="steam s2" x="14" y="38" width="1" height="2" fill="#8b949e"/>
+  <g class="mug">
+    <rect x="11" y="41" width="5" height="5" fill="#e6edf3"/>
+    <rect x="12" y="41" width="3" height="1" fill="#6b4423"/>
+    <rect x="11" y="43" width="5" height="1" fill="#D97757"/>
+    <rect x="16" y="42" width="1" height="3" fill="#e6edf3"/>
+    <rect class="steam" x="12" y="38" width="1" height="2" fill="#8b949e"/>
+    <rect class="steam s2" x="14" y="38" width="1" height="2" fill="#8b949e"/>
+    <!-- Hand holding the handle, it travels with the mug -->
+    <rect class="hand" x="16" y="42" width="2" height="2" fill="#D97757"/>
+  </g>
 
   <!-- Desk with keyboard -->
   <rect x="42" y="45" width="12" height="1" fill="#8b949e"/>
