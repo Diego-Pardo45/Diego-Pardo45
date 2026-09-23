@@ -24,4 +24,10 @@ La mayor parte de mi trabajo está en repositorios privados por acuerdos de conf
 ### Herramientas de IA
 <p><img src="assets/claude.svg" alt="Claude Code" title="Claude Code" width="48" /> <img src="assets/codex.svg" alt="Codex" title="Codex" width="48" /> <img src="assets/antigravity.svg" alt="Antigravity" title="Antigravity" width="48" /></p>
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Diego-Pardo45/Diego-Pardo45/output/github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Diego-Pardo45/Diego-Pardo45/output/github-snake.svg" />
+  <img alt="Serpiente recorriendo el gráfico de contribuciones" src="https://raw.githubusercontent.com/Diego-Pardo45/Diego-Pardo45/output/github-snake.svg" />
+</picture>
+
 📫 [LinkedIn](https://www.linkedin.com/in/dpardoo) · diegopardopersonal@gmail.com
