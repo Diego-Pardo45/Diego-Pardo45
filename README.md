@@ -1,5 +1,7 @@
 # Hola, soy Diego 👋
 
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1200&color=2EA043&vCenter=true&width=520&lines=Desarrollador+full+stack;APIs+tipadas+de+extremo+a+extremo;TDD+%C2%B7+CI%2FCD+%C2%B7+Google+Cloud" alt="Desarrollador full stack" />
+
 Estudiante de 5° año de Ingeniería Civil Informática en la Universidad del Bío-Bío y desarrollador full stack.
 
 ### En qué trabajo
@@ -8,15 +10,17 @@ Estudiante de 5° año de Ingeniería Civil Informática en la Universidad del B
 
 La mayor parte de mi trabajo está en repositorios privados por acuerdos de confidencialidad.
 
-<details>
-<summary><b>Cómo trabajo y stack</b></summary>
+### Stack
+<img src="https://skillicons.dev/icons?i=ts,nestjs,react,nextjs,postgres,prisma,docker,gcp" alt="TypeScript, NestJS, React, Next.js, PostgreSQL, Prisma, Docker, Google Cloud" />
+
+También trabajo con Drizzle ORM.
+
+### Cómo trabajo
+<img src="https://skillicons.dev/icons?i=vitest,jest,githubactions" alt="Vitest, Jest, GitHub Actions" />
 
 - Desarrollo guiado por pruebas (TDD) con Vitest y Jest, y pruebas E2E de API con Supertest
 - CI/CD con GitHub Actions y Cloud Build
 - APIs tipadas de extremo a extremo con oRPC y Zod
 - Desarrollo asistido por agentes de IA (Claude Code, Antigravity, Codex)
-
-**Stack:** TypeScript · NestJS · React · Next.js · PostgreSQL · Drizzle · Prisma · Docker · Google Cloud
-</details>
 
 📫 [LinkedIn](https://www.linkedin.com/in/dpardoo) · diegopardopersonal@gmail.com
