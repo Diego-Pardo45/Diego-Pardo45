@@ -16,13 +16,20 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Generar la serpiente a partir del gráfico de contribuciones
-        uses: Platane/snk/svg-only@v3
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
         with:
-          github_user_name: ${{ github.repository_owner }}
-          outputs: |
-            dist/github-snake.svg
-            dist/github-snake-dark.svg?palette=github-dark
+          node-version: 24
+
+      - name: Probar el generador
+        run: node --test scripts/snake.test.mjs
+
+      - name: Generar la serpiente a partir del gráfico de contribuciones
+        run: node scripts/snake.mjs dist
+        env:
+          GITHUB_USER: ${{ github.repository_owner }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publicar los SVG en la rama output
         uses: crazy-max/ghaction-github-pages@v5
