@@ -21,4 +21,7 @@ La mayor parte de mi trabajo está en repositorios privados por acuerdos de conf
 - APIs tipadas de extremo a extremo con oRPC y Zod
 - Desarrollo asistido por agentes de IA (Claude Code, Antigravity, Codex)
 
+### Herramientas de IA
+<p><img src="assets/claude.svg" alt="Claude Code" title="Claude Code" width="48" /> <img src="assets/codex.svg" alt="Codex" title="Codex" width="48" /> <img src="assets/antigravity.svg" alt="Antigravity" title="Antigravity" width="48" /></p>
+
 📫 [LinkedIn](https://www.linkedin.com/in/dpardoo) · diegopardopersonal@gmail.com
