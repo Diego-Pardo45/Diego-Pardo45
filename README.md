@@ -2,7 +2,7 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1200&color=2EA043&vCenter=true&width=520&lines=Desarrollador+full+stack;APIs+tipadas+de+extremo+a+extremo;TDD+%C2%B7+CI%2FCD+%C2%B7+Google+Cloud" alt="Desarrollador full stack" />
 
-<img align="right" src="assets/coder.svg" width="300" alt="Personaje pixel art programando con una taza de café" />
+<img align="right" src="assets/coder.svg" width="260" alt="Personaje pixel art programando con una taza de café" />
 
 Estudiante de 5° año de Ingeniería Civil Informática en la Universidad del Bío-Bío y desarrollador full stack.
 
