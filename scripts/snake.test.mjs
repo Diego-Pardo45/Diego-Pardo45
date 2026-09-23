@@ -41,25 +41,36 @@ test("toGrid maps each day to a cell with its weekday row and level", () => {
   assert.deepEqual(empty, { x: 0, y: 0, count: 0, level: 0 });
 });
 
-test("the snake avoids days with contributions when an empty route exists", () => {
-  const grid = toGrid(sample);
+function assertNeverStepsOnContributions(grid, path) {
   const busy = new Set(grid.cells.filter((c) => c.count > 0).map(key));
-  for (const step of planPath(grid)) {
+  for (const step of path) {
     assert.ok(!busy.has(key(step)), `stepped on ${key(step)}`);
   }
+}
+
+test("the snake never steps on a day with contributions", () => {
+  const grid = toGrid(sample);
+  assertNeverStepsOnContributions(grid, planPath(grid));
 });
 
-test("a full column of contributions does not trap the snake on one side", () => {
+test("a full column of contributions is walked around from the outside", () => {
   const grid = toGrid(calendarFrom([
     "..#..",
     "..#..",
     "..#..",
   ]));
   const path = planPath(grid);
+  assertNeverStepsOnContributions(grid, path);
   assert.ok(path.some((s) => s.x === 0), "never reached the left side");
   assert.ok(path.some((s) => s.x === 4), "never reached the right side");
-  const crossings = path.filter((s) => s.x === 2);
-  assert.ok(crossings.length <= 2, `crossed the wall ${crossings.length} times`);
+});
+
+test("the snake stays within one cell of the graph", () => {
+  const grid = toGrid(sample);
+  for (const step of planPath(grid)) {
+    assert.ok(step.x >= -1 && step.x <= grid.width, `left the graph at ${key(step)}`);
+    assert.ok(step.y >= -1 && step.y <= grid.height, `left the graph at ${key(step)}`);
+  }
 });
 
 test("the snake moves one cell at a time", () => {
@@ -70,16 +81,20 @@ test("the snake moves one cell at a time", () => {
   }
 });
 
-test("the snake visits every empty cell, even the enclosed ones", () => {
+test("the snake visits every empty cell except those sealed in by contributions", () => {
   const grid = toGrid(calendarFrom([
-    ".#.....",
-    "##..#..",
-    "...#.#.",
-    "....#..",
+    ".....",
+    ".###.",
+    ".#.#.",
+    ".###.",
+    ".....",
   ]));
-  const visited = new Set(planPath(grid).map(key));
+  const path = planPath(grid);
+  assertNeverStepsOnContributions(grid, path);
+  const visited = new Set(path.map(key));
   for (const cell of grid.cells.filter((c) => c.count === 0)) {
-    assert.ok(visited.has(key(cell)), `never visited ${key(cell)}`);
+    const sealed = cell.x === 2 && cell.y === 2;
+    assert.equal(visited.has(key(cell)), !sealed, `${key(cell)} visited: ${visited.has(key(cell))}`);
   }
 });
 
@@ -93,12 +108,13 @@ test("a calendar full of contributions produces no movement", () => {
   assert.deepEqual(planPath(grid), []);
 });
 
-test("days not yet in the calendar are neither drawn nor walkable", () => {
+test("days not yet in the calendar are not drawn", () => {
   const calendar = calendarFrom(["...", "..."]);
   calendar.weeks[2].contributionDays.pop();
   const grid = toGrid(calendar);
   assert.equal(grid.cells.length, 5);
-  assert.ok(!planPath(grid).some((s) => s.x === 2 && s.y === 1));
+  const svg = renderSvg(grid, planPath(grid), "light");
+  assert.equal((svg.match(/class="c"/g) ?? []).length, 5);
 });
 
 test("renderSvg draws every day and animates the snake", () => {

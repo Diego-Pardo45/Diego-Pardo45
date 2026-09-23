@@ -1,7 +1,6 @@
 // Generates a snake that roams the contribution graph without eating the days with
-// contributions: it walks over empty days and, when a wall of contributions blocks
-// the way, slides underneath it. Those days are drawn above the snake, so they stay
-// visible for the whole animation.
+// contributions: it walks only over empty days and, when a wall of contributions
+// blocks the way, goes around it through a lane just outside the graph.
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
@@ -14,12 +13,10 @@ const PALETTES = {
 
 const PITCH = 16;
 const CELL = 12;
-const MARGIN = 4;
+// Room for the lane around the graph, one cell wide.
+const MARGIN = PITCH + 2;
 const STEP_SECONDS = 0.1;
 const SEGMENT_SIZES = [12, 10.5, 9, 7.5];
-// Entering a day with contributions costs this many empty steps, so the snake takes
-// a reasonable detour over empty days before choosing to slide under one.
-const BUSY_COST = 8;
 
 // Preference order among equally near cells: sweeping each column top to bottom
 // and back makes the tour read as a snake instead of a random walk.
@@ -43,64 +40,82 @@ export function toGrid(calendar) {
   };
 }
 
-function neighbors(cells, { x, y }) {
-  return DIRECTIONS.map(([dx, dy]) => cells.get(key(x + dx, y + dy))).filter(Boolean);
+// Positions the snake may occupy: empty days, days not yet in the calendar and a
+// one-cell lane around the graph. Days with contributions are never walkable.
+function walkableArea(grid) {
+  const cells = new Map(grid.cells.map((c) => [key(c.x, c.y), c]));
+  const walkable = new Map();
+  for (let x = -1; x <= grid.width; x++) {
+    for (let y = -1; y <= grid.height; y++) {
+      const cell = cells.get(key(x, y));
+      if (!cell || cell.count === 0) walkable.set(key(x, y), { x, y, isDay: Boolean(cell) });
+    }
+  }
+  return walkable;
 }
 
-// Cheapest route from `from` (excluding it) to the nearest cell that satisfies
-// `isTarget`, or null when there is none. Ties keep the DIRECTIONS preference.
-function routeTo(cells, from, isTarget) {
-  const cost = new Map([[key(from.x, from.y), 0]]);
-  const previous = new Map([[key(from.x, from.y), null]]);
-  const settled = new Set();
-  const frontier = [from];
-  while (frontier.length) {
-    let best = 0;
-    for (let i = 1; i < frontier.length; i++) {
-      if (cost.get(key(frontier[i].x, frontier[i].y)) < cost.get(key(frontier[best].x, frontier[best].y))) best = i;
-    }
-    const [current] = frontier.splice(best, 1);
-    const currentKey = key(current.x, current.y);
-    if (settled.has(currentKey)) continue;
-    settled.add(currentKey);
+function neighbors(walkable, { x, y }) {
+  return DIRECTIONS.map(([dx, dy]) => walkable.get(key(x + dx, y + dy))).filter(Boolean);
+}
 
+// Shortest route from `from` (excluding it) to the nearest position that satisfies
+// `isTarget`, or null when there is none. Ties keep the DIRECTIONS preference.
+function routeTo(walkable, from, isTarget) {
+  const previous = new Map([[key(from.x, from.y), null]]);
+  const queue = [from];
+  for (let i = 0; i < queue.length; i++) {
+    const current = queue[i];
     if (current !== from && isTarget(current)) {
       const route = [];
       for (let c = current; c !== from; c = previous.get(key(c.x, c.y))) route.unshift({ x: c.x, y: c.y });
       return route;
     }
-    for (const next of neighbors(cells, current)) {
-      const nextKey = key(next.x, next.y);
-      const nextCost = cost.get(currentKey) + (next.count > 0 ? BUSY_COST : 1);
-      if (nextCost < (cost.get(nextKey) ?? Infinity)) {
-        cost.set(nextKey, nextCost);
-        previous.set(nextKey, current);
-        frontier.push(next);
+    for (const next of neighbors(walkable, current)) {
+      if (!previous.has(key(next.x, next.y))) {
+        previous.set(key(next.x, next.y), current);
+        queue.push(next);
       }
     }
   }
   return null;
 }
 
-export function planPath(grid) {
-  const cells = new Map(grid.cells.map((c) => [key(c.x, c.y), c]));
-  const empty = grid.cells.filter((c) => c.count === 0);
-  if (empty.length === 0) return [];
+function reachableFrom(walkable, origin) {
+  const seen = new Set([key(origin.x, origin.y)]);
+  const queue = [origin];
+  for (let i = 0; i < queue.length; i++) {
+    for (const next of neighbors(walkable, queue[i])) {
+      if (!seen.has(key(next.x, next.y))) {
+        seen.add(key(next.x, next.y));
+        queue.push(next);
+      }
+    }
+  }
+  return seen;
+}
 
-  const first = empty.reduce((best, c) => (c.x < best.x || (c.x === best.x && c.y < best.y) ? c : best));
+export function planPath(grid) {
+  const walkable = walkableArea(grid);
+  // Empty days sealed in by contributions cannot be reached without crossing one,
+  // so the tour only covers those connected to the outer lane.
+  const reachable = reachableFrom(walkable, walkable.get(key(-1, -1)));
+  const pending = [...walkable.values()].filter((p) => p.isDay && reachable.has(key(p.x, p.y)));
+  if (pending.length === 0) return [];
+
+  const first = pending.reduce((best, p) => (p.x < best.x || (p.x === best.x && p.y < best.y) ? p : best));
   const start = { x: first.x, y: first.y };
   const visited = new Set([key(start.x, start.y)]);
   const path = [start];
 
   for (;;) {
-    const route = routeTo(cells, path.at(-1), (c) => c.count === 0 && !visited.has(key(c.x, c.y)));
+    const route = routeTo(walkable, path.at(-1), (p) => p.isDay && !visited.has(key(p.x, p.y)));
     if (!route) break;
     for (const step of route) visited.add(key(step.x, step.y));
     path.push(...route);
   }
 
   if (path.length > 1) {
-    path.push(...routeTo(cells, path.at(-1), (c) => c.x === start.x && c.y === start.y));
+    path.push(...routeTo(walkable, path.at(-1), (p) => p.x === start.x && p.y === start.y));
   }
   return path;
 }
